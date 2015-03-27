@@ -1,0 +1,8 @@
+[package]
+
+name = "rschool"
+version = "0.0.1"
+authors = ["pavel.androschuk <pavel.androschuk@logicify.com>"]
+
+[[bin]]
+name = "main"
