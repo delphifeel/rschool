@@ -21,7 +21,7 @@ impl<'a> StudentManager {
 		println!("Enter student name: ");
 		let mut name = "".to_string();
 		reader.read_line(&mut name);
-		let student = Student::new(name.as_slice());
+		let student = Student::new(name.trim());
 		println!("Student {} saved", student.name);
 		self.save(student);			
 	} 
