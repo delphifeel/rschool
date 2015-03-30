@@ -1,15 +1,15 @@
 use managers::*;
 
-pub struct GlobalContext<'a> {
-	pub studentManager: StudentManager,
-	pub schoolManager: SchoolManager<'a>
+pub struct GlobalContext {
+	pub student_manager: StudentManager,
+	pub school_manager: SchoolManager
 }
 
-impl<'a> GlobalContext<'a> {	
-	pub fn new() -> GlobalContext<'a> {
+impl GlobalContext {	
+	pub fn new() -> GlobalContext {
 		GlobalContext {
-			studentManager: StudentManager::new(),
-			schoolManager : SchoolManager::new()
+			student_manager: StudentManager::new(),
+			school_manager : SchoolManager::new()
 		}
 	}
 }

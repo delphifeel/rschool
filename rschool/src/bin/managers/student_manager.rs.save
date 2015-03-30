@@ -1,10 +1,10 @@
 use models::Student;
+use std::io;
 
 pub struct StudentManager {
-	list: Vec<Student>
-}
+	list: Vec<Box<Student>>>}
 
-impl StudentManager {
+impl<'a> StudentManager {
 	pub fn new() -> StudentManager {
 		StudentManager{list: Vec::new()}	
 	}	
@@ -15,16 +15,7 @@ impl StudentManager {
 		self.save(student);			
 	} 
 
-	pub fn save(&mut self, student: Student) {
+	pub fn save(&mut self, student: Box<Student>) {
 		self.list.push(student);
-	}
-
-	pub fn get_student(&mut self, name: String) -> Option<Student> {
-		for i in self.list.iter() {
-			if i.name.eq(&name) {
-				return Some(i.clone());
-			}	
-		}
-		return None;
 	}
 }

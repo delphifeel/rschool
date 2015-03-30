@@ -1,12 +1,13 @@
 use models::Student;
 
-pub struct School<'a> {
+#[derive(Clone)]
+pub struct School {
 	pub name: String,
-	pub students: Vec<&'a Student>
+	pub students: Vec<Student>
 }
 
-impl<'a> School<'a> {
-	pub fn new(name: &str) -> School<'a> {
+impl School {
+	pub fn new(name: &str) -> School {
 		School{name: name.to_string(), students: Vec::new()}
 	}
 }	

@@ -1,0 +1,31 @@
+use models::*;
+use std::io;
+
+pub struct SchoolManager<'a> {
+	list: Vec<Box<School<'a>>>
+}
+
+impl<'a> SchoolManager<'a> {
+	pub fn new() -> SchoolManager<'a> {
+		SchoolManager{list: Vec::new()}	
+	}	
+
+	pub fn create(&mut self, name: String) {
+		let school = School::new(name.trim());
+		println!("School {} saved", school.name);
+		self.save(Box::new(school));			
+	} 
+
+	pub fn save(&mut self, school: Box<School<'a>>) {
+		self.list.push(school);
+	}
+	
+	pub fn get_school(&mut self, name: String) -> Option<> {
+		for &i in self.list.iter() {
+			if i.name.eq(&name) {
+				return Some(i);
+			}
+		}
+		return None;
+	}
+}
