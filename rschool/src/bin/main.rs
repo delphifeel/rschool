@@ -1,21 +1,25 @@
+#![allow(unused_features)]
 #![feature(core)]
 mod models;
 mod consts;
 mod managers;
 mod input_context;
 mod global_context;
+#[cfg(test)]
+mod tests;
 
 use consts::*;
 use global_context::*;
 use input_context::InputContext;
 
+#[allow(dead_code)]
 fn main() {
 	// Global variables
 	let mut gc = GlobalContext::new();
 	// Input manager
 	let mut ic = InputContext::new();
 
-	let mut input = "".to_string();
+	let mut input;
 	loop {
 		println!(">>");
 		input = "".to_string();
@@ -32,19 +36,12 @@ fn main() {
 		} else if input.eq(&commands::ADD_STUDENT_TO_SCHOOL) {
 			let student_name = ic.read_student_name();
 			let school_name = ic.read_school_name();
-			let school_option = gc.school_manager.get_school(school_name.trim().to_string());
-			if school_option.is_none() {
-				println!("School not founded");
+			let student_option = gc.student_manager.get_student(student_name);
+			if student_option.is_none() {
+				println!("Student not found");
 			} else {
-				let mut school = school_option.unwrap();
-				let student_option = gc.student_manager.get_student(student_name.trim().to_string());
-				if student_option.is_none() {
-					println!("Student not found");
-				} else {
-					let student = student_option.unwrap();
-					school.students.push(student);
-					println!("Student added to school");		
-				}
+				let student = student_option.unwrap();
+				gc.school_manager.add_student_to_school(student, school_name);
 			}
 		}	
 	}
