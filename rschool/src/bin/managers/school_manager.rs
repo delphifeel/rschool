@@ -4,7 +4,7 @@ pub struct SchoolManager {
 	list: Vec<School>
 }
 
-impl<'b> SchoolManager {
+impl SchoolManager {
 	pub fn new() -> SchoolManager {
 		SchoolManager{list: Vec::new()}	
 	}	
@@ -19,19 +19,26 @@ impl<'b> SchoolManager {
 		self.list.push(school);
 	}
 	
-	pub fn get_school<'a>(&'a mut self, name: String) -> Option<&'a mut &'a School> {
-		let result: Option<&mut &School> = None;
-		for ref mut i in self.list.iter() {
+	pub fn get_school(&self, name: String) -> Option<School> {
+		for i in self.list.iter() {
 			if i.name.eq(&name) {
-				let result = i;
-				break;
-			}
-		}
-		return result;
+				return Some(i.clone());
+			}	
+		}	
+		return None;
 	}
 
-	pub fn add_student_to_school(&mut self, student: Student, school_name: String) {
-		let school_opt = self.get_school(school_name);
+	pub fn get_school_mut<'a>(&'a mut self, name: String) -> Option<&'a mut School> {
+		for i in self.list.iter_mut() {
+			if i.name.eq(&name) {
+				return Some(i);		
+			}	
+		}
+		return None;
+	}
+
+	pub fn add_student_to_school<'a>(&'a mut self, student: Student, school_name: String) {
+		let school_opt = self.get_school_mut(school_name);
 		if school_opt.is_none() {
 			println!("School not found");
 			return;

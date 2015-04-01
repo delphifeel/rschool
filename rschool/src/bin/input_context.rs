@@ -31,7 +31,7 @@ impl InputContext {
 		let mut data = "".to_string();
 		let result = self.reader.read_line(&mut data);
 		self.check_result(result);
-		return data;			
+		return data.trim().to_string();			
 	}
 
 	pub fn read_school_name(&mut self) -> String {
@@ -39,6 +39,6 @@ impl InputContext {
 		let mut data = "".to_string();
 		let result = self.reader.read_line(&mut data);
 		self.check_result(result);
-		return data;
+		return data.trim().to_string();
 	}
 }
